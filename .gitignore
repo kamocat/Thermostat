@@ -1,3 +1,12 @@
+# Google API Secrets
+client_secret.json
+application_credentials.json
+storage.json
+credentials.json
+token.pickle
+
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -53,6 +62,8 @@ coverage.xml
 
 # Django stuff:
 *.log
+.static_storage/
+.media/
 local_settings.py
 db.sqlite3
 
@@ -102,3 +113,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+Create Short LinkX
