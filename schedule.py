@@ -24,10 +24,11 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-
 def parse_date( text ):
-	if ":" == text[-3:2]:
+	if ":" == text[-3:-2]:
 		text = text[:-3]+text[-2:]
+	elif "." == text[-5:-4]:
+		text = text[:-5]+'+0000'
 	result = datetime.datetime.strptime(  text, "%Y-%m-%dT%H:%M:%S%z")
 	return( result )
 
