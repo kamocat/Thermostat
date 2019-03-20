@@ -24,6 +24,13 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
+
+def parse_date( text ):
+	if ":" == text[-3:2]:
+		text = text[:-3]+text[-2:]
+	result = datetime.datetime.strptime(  text, "%Y-%m-%dT%H:%M:%S%z")
+	return( result )
+
 def main():
 	"""Shows basic usage of the Google Calendar API.
 	Prints the start and name of the next 10 events on the user's calendar.
@@ -62,11 +69,11 @@ def main():
 	event = events[0]	# Get first event
 	now = datetime.datetime.now(datetime.timezone.utc)
 	start = event['start'].get('dateTime')
-	start = datetime.datetime.strptime(  start, "%Y-%m-%dT%H:%M:%S%z")
+	start = parse_date( start )
 	end = event['end'].get('dateTime')
-	end = datetime.datetime.strptime(  end, "%Y-%m-%dT%H:%M:%S%z")
+	end = parse_date( end )
 	updated = event['updated']
-	updated = datetime.datetime.strptime(  updated, "%Y-%m-%dT%H:%M:%S.%f%z")
+	updated = parse_date( updated )
 	updated = now - updated
 	temp = int( event['summary'] )
 	if start <= now:
