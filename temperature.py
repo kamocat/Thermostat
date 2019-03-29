@@ -13,7 +13,7 @@ def read(ser ):
 	voltB = 37502.0
 	slope = (tempA-tempB)/(voltA-voltB)
 	offset = tempA - (voltA * slope)
-	print("slope", slope, "offset", offset)
+	#print("slope", slope, "offset", offset)
 
 	try:
 		# If the buffer is too long, flush it
@@ -23,7 +23,7 @@ def read(ser ):
 
 		text = ser.read_until()
 		val = int(text)
-		print("val read is", val)
+		#print("val read is", val)
 	except:
 		print("Invalid value read", text)
 		# Don't heat. Return an obvious error
