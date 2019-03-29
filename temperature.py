@@ -6,13 +6,14 @@ def init():
 	ser.timeout = 1.0
 	return ser
 
-def read(ser):
-	tempA = 32
-	voltA = 33000.0 / (32554 + 10000)
-	tempB = 77
-	voltB = 3.3/2
-	slope = (tempB-tempA)/(voltB-voltA)
-	offset = voltA * slope - tempA
+def read(ser ):
+	tempA = 64.3
+	voltA = 27632.0
+	tempB = 94.5
+	voltB = 37502.0
+	slope = (tempA-tempB)/(voltA-voltB)
+	offset = tempA - (voltA * slope)
+	print("slope", slope, "offset", offset)
 
 	try:
 		# If the buffer is too long, flush it
@@ -22,10 +23,19 @@ def read(ser):
 
 		text = ser.read_until()
 		val = int(text)
+		print("val read is", val)
 	except:
 		print("Invalid value read", text)
+		# Don't heat. Return an obvious error
+		temp = 1000
 	else:
-		volts = val * 3.3 / (2**16 - 1)
-		temp = volts * slope + offset
-
+		temp = val * slope + offset
+		
 	return temp
+
+if __name__ == '__main__':
+	s = init()
+	t = read(s)
+	print("temperature is", t )
+
+

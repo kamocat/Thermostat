@@ -21,6 +21,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
@@ -32,7 +33,7 @@ def parse_date( text ):
 	result = datetime.datetime.strptime(  text, "%Y-%m-%dT%H:%M:%S%z")
 	return( result )
 
-def main():
+def get():
 	"""Shows basic usage of the Google Calendar API.
 	Prints the start and name of the next 10 events on the user's calendar.
 	"""
@@ -67,6 +68,7 @@ def main():
 
 	if not events:
 		print('No upcoming events.')
+		return 0
 	event = events[0]	# Get first event
 	now = datetime.datetime.now(datetime.timezone.utc)
 	start = event['start'].get('dateTime')
@@ -76,13 +78,16 @@ def main():
 	updated = event['updated']
 	updated = parse_date( updated )
 	updated = now - updated
-	temp = int( event['summary'] )
+	target = int( event['summary'] )
 	if start <= now:
-		print("Heating to", temp, "\tupdated", updated, "ago" )
+		print("Heating to", target, "\tupdated", updated, "ago" )
+		return target
 	else:
 		print('Heater is off right now.')
-		print('Heating to', temp, 'in', ((start-now).seconds)/60, "minutes" )
+		print('Heating to', target, 'in', ((start-now).seconds)/60, "minutes" )
+		return 0
+		
 
 if __name__ == '__main__':
-	main()
+	get()
 # [END calendar_quickstart]
