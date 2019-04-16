@@ -1,6 +1,6 @@
 [submodule "display/uGFX"]
 	path = display/uGFX
 	url = https://git.ugfx.io/uGFX/uGFX.git
-[submodule "display/jsmn"]
-	path = display/jsmn
-	url = https://github.com/zserge/jsmn.git
+[submodule "display/js0n"]
+	path = display/js0n
+	url = https://github.com/quartzjer/js0n.git
