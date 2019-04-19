@@ -73,7 +73,7 @@ int main(void) {
       y = 0;
       // Update the time
       t = time(NULL);
-      strftime(current_time, sizeof(current_time), "%R %p", localtime(&t));
+      strftime(current_time, sizeof(current_time), "%I:%M %p", localtime(&t));
       
       strcpy(current_temp, "68");
       strcpy(target_temp, "70");
