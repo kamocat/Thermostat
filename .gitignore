@@ -1,3 +1,6 @@
+# vi swap files
+*swp
+
 # Google API Secrets
 client_secret.json
 application_credentials.json
