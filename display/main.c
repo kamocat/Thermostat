@@ -35,7 +35,7 @@
 int main(void) {
 	gCoord		width, y, height;
 	gFont		font1, font2, font3;
-	gCoord		fheight1, fheight2;
+	gCoord		fheight1, fheight2, fheight3;
 	char		current_time[10];
 	char		target_temp[5];
 	char		current_temp[5];
@@ -51,41 +51,45 @@ int main(void) {
 	height = 240;
 
     // Get the fonts we want to use
-	font1 = gdispOpenFont("DejaVu*32");
-	font2 = gdispOpenFont("DejaVu*12");
-	font3 = gdispOpenFont("Large*");
-	//font2 = gdispOpenFont("UI2*");
-	//font2 = gdispOpenFont("Geosans*");
-	//font2 = gdispOpenFont("Free*");
-	//font2 = gdispOpenFont("Hellovetica*");
-	//font2 = gdispOpenFont("babyblue*");
-	//font2 = gdispOpenFont("PF Ronda*");
-	//font2 = gdispOpenFont("Apple*");
+    font1 = gdispOpenFont("DejaVu*32");
+    font2 = gdispOpenFont("DejaVu*12");
+    font3 = gdispOpenFont("DejaVu*100");
+    //font2 = gdispOpenFont("UI2*");
+    //font2 = gdispOpenFont("Geosans*");
+    //font2 = gdispOpenFont("Free*");
+    //font2 = gdispOpenFont("Hellovetica*");
+    //font2 = gdispOpenFont("babyblue*");
+    //font2 = gdispOpenFont("PF Ronda*");
+    //font2 = gdispOpenFont("Apple*");
 
-	y = 0;
-	fheight1 = gdispGetFontMetric(font1, gFontHeight)+2;
-	fheight2 = gdispGetFontMetric(font2, gFontHeight)+2;
+    y = 0;
+    fheight1 = gdispGetFontMetric(font1, gFontHeight)+2;
+    fheight2 = gdispGetFontMetric(font2, gFontHeight)+2;
+    fheight3 = gdispGetFontMetric(font3, gFontHeight)+2;
 
-	// Update the time
-	t = time(NULL);
-	strftime(current_time, sizeof(current_time), "%R %p", localtime(&t));
-	
-	strcpy(current_temp, "68");
-	strcpy(target_temp, "70");
-	strcpy(outside_temp, "45");
 
-	gdispFillStringBox(0, y, width/2,  fheight1, current_time, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
-	gdispFillStringBox(width/2, y, width/2,  fheight1, target_temp, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
-	y += fheight1+1;
-	gdispFillStringBox(0, y, width/2,  fheight2, "Inside", font2, GFX_BLACK, GFX_WHITE, gJustifyCenter);
-	gdispFillStringBox(width/2, y, width/2,  height-y, outside_temp, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
-y += fheight2;
-	gdispFillStringBox(0, y, width/2,  fheight1, current_temp, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
-
-	
-	// Wait forever
+    // Wait forever
     while(1) {
+      y = 0;
+      // Update the time
+      t = time(NULL);
+      strftime(current_time, sizeof(current_time), "%R %p", localtime(&t));
+      
+      strcpy(current_temp, "68");
+      strcpy(target_temp, "70");
+      strcpy(outside_temp, "45");
+
+      gdispFillStringBox(0, y, width/2,  fheight1, current_time, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
+      gdispFillStringBox(width/2, y, width/2,  fheight1, target_temp, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
+      y += fheight1+1;
+      gdispFillStringBox(0, y, width/2,  fheight2, "Inside", font2, GFX_BLACK, GFX_WHITE, gJustifyCenter);
+      gdispFillStringBox(width/2, y, width/2,  height-y, outside_temp, font1, GFX_BLACK, GFX_WHITE, gJustifyCenter);
+    y += fheight2;
+      gdispFillStringBox(0, y, width/2,  fheight3, current_temp, font3, GFX_BLACK, GFX_WHITE, gJustifyCenter);
+
     	gfxSleepMilliseconds(500);
     }   
+
+	
 }
 
