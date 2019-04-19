@@ -4,3 +4,6 @@
 [submodule "display/js0n"]
 	path = display/js0n
 	url = https://github.com/quartzjer/js0n.git
+[submodule "tiny26"]
+	path = tiny26
+	url = https://github.com/kamocat/tiny26.git
