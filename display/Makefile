@@ -9,13 +9,13 @@
 	OPT_OS					= linux
 	OPT_LINK_OPTIMIZE		= yes
 	# Change this next setting (or add the explicit compiler flags) if you are not compiling for x86 linux
-	OPT_CPU					= x86
+	OPT_CPU					= raspberrypi
         GFX_USE_OS_LINUX		        = GFXON
 
 # uGFX settings
 	# See $(GFXLIB)/tools/gmake_scripts/library_ugfx.mk for the list of variables
 	GFXLIB					= ./uGFX
-	GFXBOARD				= Linux-X
+	GFXBOARD				= Linux-Framebuffer
 #	GFXDEMO					= modules/gdisp/fonts
    GFXSRC += ./main.c
 
@@ -28,7 +28,7 @@
 
 ARCH     =
 SRCFLAGS = -ggdb -O0
-CFLAGS   = -Wno-duplicate-decl-specifier
+CFLAGS   =
 CXXFLAGS =
 ASFLAGS  =
 LDFLAGS  = -lm -g
