@@ -11,6 +11,7 @@ furnace = LED(4)
 hysteresis = 0.5
 desired = 0
 actual = 100
+fifo = open("../display/input", "w")
 
 while 1:
 	if (actual - desired) > hysteresis:
@@ -24,6 +25,10 @@ while 1:
 		# Turn on furnace
 		furnace.on()
 		print("Turning furnace on...")
+	# Send update to the display
+	json_string = "{ current:"+str(round(actual,1))+" target:"+str(round(desired,1))+" }"
+	fifo.write(json_string)
+	print(json_string)
 	# Sleep for several seconds
 	time.sleep(3)
 	actual = temperature.read(s)
