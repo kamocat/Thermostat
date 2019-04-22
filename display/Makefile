@@ -33,7 +33,7 @@ CXXFLAGS =
 ASFLAGS  =
 LDFLAGS  = -lm -g
 
-SRC      =
+SRC      = js0n/src/js0n.c
 OBJS     =
 DEFS     =
 LIBS     =
