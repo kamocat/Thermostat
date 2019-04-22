@@ -79,7 +79,10 @@ int main(void) {
       
       // Get our new values from the FIFO
       size_t r = fread( input_string, 1, 100, input);
-      fseek( input, r, SEEK_CUR );  // Move the file position
+      if( !r ){
+        freopen( 0, "r", input );
+      }
+      printf("Read %d characters: %.*s\r\n", r, r, input_string);
       size_t len1;
       size_t len2;
       current_temp = js0n("current", 0, input_string, r, &len1);
