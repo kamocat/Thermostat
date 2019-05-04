@@ -3,6 +3,7 @@
 import temperature
 import schedule
 import datetime
+import display
 import time
 from gpiozero import LED
 
@@ -25,8 +26,7 @@ while 1:
 		furnace.on()
 		#print("Turning furnace on...")
 	# Send update to the display
-	json_string = "{ current:"+str(round(actual,1))+" target:"+str(round(desired,1))+" }"
-	print(json_string)
+	display.update(str(round(desired,1)), str(round(actual,1)))
 	# Sleep for several seconds
 	time.sleep(3)
 	actual = temperature.read(s)

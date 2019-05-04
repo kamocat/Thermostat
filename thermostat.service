@@ -1,0 +1,19 @@
+[Unit]
+Description=Temperature control for my house
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+Restart=yes
+ExecStart=/home/pi/Thermostat/control/main.py
+ExecStop=/bin/kill -INT $MAINPID
+TimeoutStopSec=10s
+User=pi
+WorkingDirectory=/home/pi/Thermostat/control
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty7
+
+[Install]
+WantedBy=multi-user.target

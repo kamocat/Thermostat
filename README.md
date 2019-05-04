@@ -1,6 +1,19 @@
 # Thermostat
 Thermostat control via Raspberry Pi and Google Calendar
 
+## Systemd setup
+We can't run Pygame over SSH, so instead we run it as a systemd service.
+```
+sudo cp thermostat.service /etc/systemd/system/
+sudo sysmemctl daemon-reload
+sudo systemctl enable thermostat
+sudo systemctl start thermostat
+```
+To reload the service for testing changes, try
+```
+sudo systemctl restart thermostat
+```
+
 
 Based off the Google Calendar Python Quickstart
 
