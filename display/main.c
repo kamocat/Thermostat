@@ -51,7 +51,8 @@ int main(void) {
     gfxInit();
 
   // Open the FIFO
-  input = fopen("input", "r");
+ // input = fopen("input", "r");
+  input = stdin;
   input_string = (char *)gfxAlloc( 100 );
 
     // Get the screen size
@@ -79,9 +80,6 @@ int main(void) {
       
       // Get our new values from the FIFO
       size_t r = fread( input_string, 1, 100, input);
-      if( !r ){
-        freopen( 0, "r", input );
-      }
       printf("Read %d characters: %.*s\r\n", r, r, input_string);
       size_t len1;
       size_t len2;

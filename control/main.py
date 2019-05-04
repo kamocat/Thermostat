@@ -11,7 +11,6 @@ furnace = LED(4)
 hysteresis = 0.5
 desired = 0
 actual = 100
-fifo = open("../display/input", "w")
 
 while 1:
 	if (actual - desired) > hysteresis:
@@ -20,19 +19,18 @@ while 1:
 		# furnace does not turn off immidiately, but keeps
 		# the blower on for a few minutes to cool down
 		furnace.off()
-		print("Turning furnace off...")
+		#print("Turning furnace off...")
 	elif (desired - actual) > hysteresis:
 		# Turn on furnace
 		furnace.on()
-		print("Turning furnace on...")
+		#print("Turning furnace on...")
 	# Send update to the display
 	json_string = "{ current:"+str(round(actual,1))+" target:"+str(round(desired,1))+" }"
-	fifo.write(json_string)
 	print(json_string)
 	# Sleep for several seconds
 	time.sleep(3)
 	actual = temperature.read(s)
-	print(datetime.datetime.now().time(), "current temp is", actual)
+	#print(datetime.datetime.now().time(), "current temp is", actual)
 	try:
 		desired = schedule.get()
 	except:
