@@ -12,7 +12,8 @@ TimeoutStopSec=10s
 User=pi
 WorkingDirectory=/home/pi/Thermostat/control
 StandardInput=tty
-StandardOutput=tty
+StandardOutput=syslog+console
+StandardError=syslog+console
 TTYPath=/dev/tty7
 
 [Install]
