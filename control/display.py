@@ -26,24 +26,23 @@ screen.fill(WHITE)
 pygame.display.flip()
 import weather
 
-#bigfont = pygame.font.Font(None, 100)
 bigfont = pygame.font.SysFont("Dejavusans", 100)
-medfont = pygame.font.SysFont("Dejavusans", 64)
+medfont = pygame.font.SysFont("Dejavusans", 72)
 smallfont = pygame.font.SysFont("Dejavusans", 36)
-time_rect = (0,0,160,50)
-dt_rect = (210,0,100,50)
+time_rect = (0,0,240,50)
+dt_rect = (260,0,60,50)
 ct_rect = (10,100,140,140)
 weather_rect = (160,60,160,180)
 
 def update( desired_temp, actual_temp ):
 	time_text = datetime.now().strftime('%I:%M %p')
-	b = smallfont.render(time_text, True, BLACK)
+	b = medfont.render(time_text, True, BLACK)
 	screen.fill(WHITE, time_rect)
 	screen.blit(b, [10,2])
 
 	b = smallfont.render(desired_temp, True, BLACK)
 	screen.fill(WHITE, dt_rect)
-	screen.blit(b, [210,2])
+	screen.blit(b, [260,2])
 
 	btarget = bigfont.render(actual_temp, True, BLACK)
 	screen.fill(WHITE, ct_rect)
@@ -60,6 +59,3 @@ def outside():
 	bweather = smallfont.render(latest["temperature"], True, DARK)
 	w.blit(bweather, [10,40])
 	pygame.display.update(weather_rect)
-
-
-#update('50', '60')

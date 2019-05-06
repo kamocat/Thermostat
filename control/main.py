@@ -1,9 +1,9 @@
 #! /usr/bin/python3
 
+import display
 import temperature
 import schedule
 import datetime
-import display
 import time
 from gpiozero import LED
 
@@ -29,6 +29,7 @@ while 1:
 	display.update(str(round(desired,1)), str(round(actual,1)))
 	# Sleep for several seconds
 	time.sleep(3)
+	display.outside()
 	actual = temperature.read(s)
 	#print(datetime.datetime.now().time(), "current temp is", actual)
 	try:
