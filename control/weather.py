@@ -1,23 +1,28 @@
 import pygame
-import time
 
-screen = pygame.display.set_mode((160,160))
+#screen = pygame.display.set_mode((160,160))
 icons = pygame.image.load('icons-small.png').convert_alpha()
 dims = (icons.get_width()/5, icons.get_height()/5)
 
-def weather( index ):
+import urllib.request
+import json
+
+req = urllib.request.Request("https://api.weather.gov/stations/CRVO/observations/latest")
+
+def text():
+	contents = json.loads(urllib.request.urlopen(req).read())
+	t = str(round(float(contents["properties"]["temperature"]["value"]) * 9.0/5 + 32, 1))
+	desc = contents["properties"]["textDescription"]
+	result = {"temperature" : t, "text" : desc}
+	return( result )
+
+def icon( w, index ):
 	x = (index % 5) * dims[0]
 	y = int(index / 5) * dims[1]
 #	print("x = ",x , "y = ", y)
-	sunny = icons.subsurface(((x,y),dims))
-	sunny = sunny.subsurface(sunny.get_bounding_rect())
-	centered = (80 - sunny.get_width()/2, 150-sunny.get_height())
-	screen.fill((200,200,255))
-	screen.blit(sunny, centered)
-	pygame.display.flip()
-	
-for i in range(24):
-	weather( i )
-	time.sleep(1)
-	
-pygame.quit()
+	sky = icons.subsurface(((x,y),dims))
+	sky = sky.subsurface(sky.get_bounding_rect())
+	centered = (w.get_width()/2 - sky.get_width()/2, w.get_height()-10-sky.get_height())
+	w.fill((255,255,255))
+	w.blit(sky, centered)
+#	pygame.display.flip()
