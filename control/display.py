@@ -1,9 +1,8 @@
 import pygame
 import datetime
 import os
-
-refresh_period = datetime.timedelta(minutes=5)
-last_update = datetime.datetime.now() - refresh_period
+import threading
+import time
 
 try:
 	fh = open('/dev/fb1')
@@ -27,7 +26,6 @@ BLUE = (0,0,255)
 DARK = (50,50,50)
 screen.fill(WHITE)
 pygame.display.flip()
-import weather
 
 bigfont = pygame.font.SysFont("Dejavusans", 100)
 medfont = pygame.font.SysFont("Dejavusans", 72)
@@ -54,13 +52,16 @@ def update( desired_temp, actual_temp ):
 	pygame.display.update((time_rect, dt_rect, ct_rect))
 
 def outside():
-	if((datetime.datetime.now() - last_update) >= refresh_period):
-		global last_update = datetime.datetime.now()
+	import weather
+	while 1:
 		w = screen.subsurface(weather_rect)
 		weather.icon(w, 3)
 		latest = weather.text()
-		bweather = smallfont.render(latest["text"], True, DARK)
-		w.blit(bweather, [10,0])
-		bweather = smallfont.render(latest["temperature"], True, DARK)
-		w.blit(bweather, [10,40])
+		b= smallfont.render(latest["text"], True, DARK)
+		w.blit(b, [10,0])
+		b= smallfont.render(latest["temperature"], True, DARK)
+		w.blit(b, [10,40])
 		pygame.display.update(weather_rect)
+		time.sleep( 60 * 5 )
+
+weather = threading.Thread( group=None, target=outside, name="Fetching current weather")

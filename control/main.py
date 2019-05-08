@@ -12,6 +12,7 @@ furnace = LED(4)
 hysteresis = 0.5
 desired = 0
 actual = 100
+display.weather.start()
 
 while 1:
 	if (actual - desired) > hysteresis:
@@ -27,7 +28,6 @@ while 1:
 		#print("Turning furnace on...")
 	# Send update to the display
 	display.update(str(round(desired,1)), str(round(actual,1)))
-	display.outside()
 	# Sleep for several seconds
 	time.sleep(3)
 	actual = temperature.read(s)
