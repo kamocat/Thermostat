@@ -1,6 +1,9 @@
 import pygame
-from datetime import datetime
+import datetime
 import os
+
+refresh_period = datetime.timedelta(minutes=5)
+last_update = datetime.datetime.now() - refresh_period
 
 try:
 	fh = open('/dev/fb1')
@@ -35,7 +38,7 @@ ct_rect = (10,100,140,140)
 weather_rect = (160,60,160,180)
 
 def update( desired_temp, actual_temp ):
-	time_text = datetime.now().strftime('%I:%M %p')
+	time_text = datetime.datetime.now().strftime('%I:%M %p')
 	b = medfont.render(time_text, True, BLACK)
 	screen.fill(WHITE, time_rect)
 	screen.blit(b, [10,2])
@@ -51,11 +54,13 @@ def update( desired_temp, actual_temp ):
 	pygame.display.update((time_rect, dt_rect, ct_rect))
 
 def outside():
-	w = screen.subsurface(weather_rect)
-	weather.icon(w, 3)
-	latest = weather.text()
-	bweather = smallfont.render(latest["text"], True, DARK)
-	w.blit(bweather, [10,0])
-	bweather = smallfont.render(latest["temperature"], True, DARK)
-	w.blit(bweather, [10,40])
-	pygame.display.update(weather_rect)
+	if((datetime.datetime.now() - last_update) >= refresh_period):
+		global last_update = datetime.datetime.now()
+		w = screen.subsurface(weather_rect)
+		weather.icon(w, 3)
+		latest = weather.text()
+		bweather = smallfont.render(latest["text"], True, DARK)
+		w.blit(bweather, [10,0])
+		bweather = smallfont.render(latest["temperature"], True, DARK)
+		w.blit(bweather, [10,40])
+		pygame.display.update(weather_rect)
