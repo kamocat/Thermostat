@@ -6,25 +6,23 @@ if( pygame.display.get_init() ):
 import urllib.request
 import json
 
-# This gets the latest Corvallis weather. Change the station to
-# your nearest airport for local weather
-# https://www.weather.gov/arh/stationlist
-#req = urllib.request.Request("https://api.weather.gov/stations/KPDX/observations/latest")
-req = urllib.request.Request("https://api.weather.gov/stations/CRVO/observations/latest")
+city = "Corvallis,us"
+# Note: this is using my personal key from openweathermap. Please use your own key.
+key = "e7ff1922140bf0166a2a54cdcb445e78"
+url = "http://api.openweathermap.org/data/2.5/weather"
+req = "?q="+city+"&APPID="+key
+req=urllib.request.Request(url+req)
+
+def KtoF( x ):
+	return str(round(((float(x)-273.15) * 1.8 + 32), 1))
 
 def text():
 	f = urllib.request.urlopen(req)
-	try:
-		t = "(url error)"
-		contents = json.loads(f.read().decode('utf-8'))
-		contents = contents["properties"]
-		t = contents["temperature"]["value"]
-		# Converting to Farenheight
-		t = str(round((float(t) * 9.0/5 + 32), 1))
-	except:
-		print( "Error converting ", t, " to float")
-		t = ""
-	desc = contents["textDescription"]
+	t = "(url error)"
+	contents = json.loads(f.read().decode('utf-8'))
+	t = contents["main"]["temp"]
+	t = KtoF(t) # Convert to Farenheight
+	desc = contents["weather"][0]["description"]
 	result = {"temperature" : t, "text" : desc}
 	return( result )
 
