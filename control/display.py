@@ -57,6 +57,7 @@ def outside():
 		w = screen.subsurface(weather_rect)
 		weather.icon(w, 3)
 		latest = weather.text()
+		print(latest)
 		b= smallfont.render(latest["text"], True, DARK)
 		w.blit(b, [10,0])
 		b= smallfont.render(latest["temperature"], True, DARK)

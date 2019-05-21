@@ -80,11 +80,11 @@ def get():
 	updated = now - updated
 	target = int( event['summary'] )
 	if start <= now:
-		print("Heating to", target, "\tupdated", updated, "ago" )
+		#print("Heating to", target, "\tupdated", updated, "ago" )
 		return target
 	else:
-		print('Heater is off right now.')
-		print('Heating to', target, 'in', ((start-now).seconds)/60, "minutes" )
+		#print('Heater is off right now.')
+		#print('Heating to', target, 'in', ((start-now).seconds)/60, "minutes" )
 		return 0
 		
 
