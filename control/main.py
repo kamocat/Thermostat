@@ -2,7 +2,7 @@
 
 import display
 import temperature
-import schedule
+#import schedule
 import datetime
 import time
 from gpiozero import LED
@@ -14,7 +14,7 @@ desired = 0
 actual = 100
 display.weather.start()
 
-while 1:
+while 0:
 	if (actual - desired) > hysteresis:
 		# Turn off furnace
 		# Note: This may result in over-heating, since the
@@ -33,7 +33,9 @@ while 1:
 	actual = temperature.read(s)
 	#print(datetime.datetime.now().time(), "current temp is", actual)
 	try:
-		desired = schedule.get()
+		#Ignoring the google calendar for now
+		#desired = schedule.get()
+		desired = 55
 	except:
 		print("Google Calendar timed out.")
 	

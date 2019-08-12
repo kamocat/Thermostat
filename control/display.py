@@ -36,11 +36,6 @@ ct_rect = (10,100,140,140)
 weather_rect = (160,60,160,180)
 
 def update( desired_temp, actual_temp ):
-	time_text = datetime.datetime.now().strftime('%I:%M %p')
-	b = medfont.render(time_text, True, BLACK)
-	screen.fill(WHITE, time_rect)
-	screen.blit(b, [10,2])
-
 	b = smallfont.render(desired_temp, True, BLACK)
 	screen.fill(WHITE, dt_rect)
 	screen.blit(b, [260,2])
@@ -54,6 +49,12 @@ def update( desired_temp, actual_temp ):
 def outside():
 	import weather
 	while 1:
+		time_text = datetime.datetime.now().strftime('%I:%M %p')
+		b = medfont.render(time_text, True, BLACK)
+		screen.fill(WHITE, time_rect)
+		screen.blit(b, [10,2])
+		pygame.display.update(time_rect)
+
 		w = screen.subsurface(weather_rect)
 		weather.icon(w, 3)
 		latest = weather.text()
@@ -63,6 +64,6 @@ def outside():
 		b= smallfont.render(latest["temperature"], True, DARK)
 		w.blit(b, [10,40])
 		pygame.display.update(weather_rect)
-		time.sleep( 60 * 5 )
+		time.sleep( 60 )
 
 weather = threading.Thread( group=None, target=outside, name="Fetching current weather")
